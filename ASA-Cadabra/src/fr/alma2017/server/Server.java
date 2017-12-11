@@ -31,7 +31,7 @@ public class Server extends AComposant implements IComposant, IServer {
 			List<Object> sourceList = (List<Object>) source;
 			sourceList.add(0,IServer.class);
 			if(Main.Sysout) {
-				System.out.println("Notification pour " + this.getClass().getName() + " : " + 
+				System.out.println("\t\tNotification pour " + this.getClass().getName() + " : " + 
 						sourceList.get(0) + " : " + sourceList.get(2) );
 			}
 		}
@@ -41,6 +41,13 @@ public class Server extends AComposant implements IComposant, IServer {
 	public void sendMessage(List<?> source) {
 		if (Main.Sysout) {
 			System.out.println("A message is being sent.");
+		}
+	}
+
+	@Override
+	public void sendAnswer(List<?> subList) {
+		if (Main.Sysout) {
+			System.out.println("A answer is being sent.");
 		}
 	}
 }
