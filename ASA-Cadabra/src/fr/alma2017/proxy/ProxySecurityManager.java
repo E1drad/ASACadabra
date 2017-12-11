@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.alma2017.api.IObserver;
+import fr.alma2017.api.server.ISecurityManager;
+import fr.alma2017.clientServer.Main;
 
 public class ProxySecurityManager implements InvocationHandler{
 
@@ -27,11 +29,29 @@ public class ProxySecurityManager implements InvocationHandler{
 			//Fonctionne correctement
 			ret = Void.TYPE;
 			this.observer.add( (IObserver) args[0] );
-		}else if(method.getName().substring(0, 3).equals("set") && this.observer != null){
+		}
+		else if (method.getName().equals("authentify") && this.observer != null) {
+			ret = method.invoke(this.target, args);
+			if(Main.Sysout) {
+				System.out.println("Proxy SecurityManager : " + this.target.getClass().getName() + " est observe par " + this.observer.size() + " objets.");
+			}
+			for(IObserver observer : this.observer) {
+				System.out.println("I AM A GENIUS");
+				if (args[0] instanceof List<?>) {		
+					System.out.println("I AM A GENIUS");
+					List<Object> sourceList = (List<Object>) args[0];
+					sourceList.add(0, ISecurityManager.class);
+				}
+			}
+		}			
+		else if(method.getName().substring(0, 3).equals("set") && this.observer != null){
 			ret = method.invoke(this.target, args);
 			//this.observer.notify(this.target);
 			System.out.println(target.getClass().getName() + " ["+ method.getName().substring(3) + "=" + args[0] + "] is modified");
-		}else{
+		}
+		
+
+		else{
 			ret = method.invoke(this.target, args);
 		}
 		return ret;

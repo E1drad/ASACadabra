@@ -17,6 +17,7 @@ import fr.alma2017.server.ServerConfiguration;
  *
  */
 public class Main {
+
 	public static void bindComposant(IConfiguration configuration) {
 		for(IComposant composant : configuration.getComposantsInternes()) {
 			if(composant instanceof IObservable) {
@@ -25,11 +26,10 @@ public class Main {
 		}
 	}
 	
-	
 	public static boolean Sysout = true;	
 	
 	public static void main(String[] args) throws NotProxiedClassException {
-		//Main.Sysout = false;
+		Main.Sysout = false;
 		IClientServerConfiguration clientServeurConfig = (IClientServerConfiguration) 
 				Proxifieur.getProxyFor(new ClientServerConfiguration(), IClientServerConfiguration.class);
 
